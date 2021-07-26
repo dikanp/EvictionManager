@@ -16,6 +16,9 @@ func (l *LRUEvictionManager) push(key string) {
 }
 
 func (l *LRUEvictionManager) pop() string {
+	if l.head == nil {
+		return "no data"
+	}
 	deletedData := l.head.value
 	l.head = l.head.next
 	l.head.prev = nil

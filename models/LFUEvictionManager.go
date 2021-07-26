@@ -21,13 +21,15 @@ func (lfuEvictionManager *LFUEvictionManager) push(key string) {
 }
 
 func (lfuEvictionManager *LFUEvictionManager) pop() string {
-	deletedData := lfuEvictionManager.heap[0]
-	lengthData := len(lfuEvictionManager.heap) - 1
-
+	
 	if len(lfuEvictionManager.heap) == 0 {
 
 		return "no data"
 	}
+
+	deletedData := lfuEvictionManager.heap[0]
+	lengthData := len(lfuEvictionManager.heap) - 1
+
 
 	lfuEvictionManager.heap[0] = lfuEvictionManager.heap[lengthData]
 	lfuEvictionManager.heap = lfuEvictionManager.heap[:lengthData]

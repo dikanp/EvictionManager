@@ -30,6 +30,9 @@ func (cache *InMemoryCache) Add(key string, value string) int {
 			log.Fatal(errors.New("key_limit_exceeded"))
 		} else {
 			removedData := cache.EvictionManager.pop()
+			if removedData == "no data" {
+				return -1
+			}
 			delete(cache.data, removedData)
 		}
 	}
