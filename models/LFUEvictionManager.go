@@ -1,6 +1,5 @@
 package models
 
-// import "fmt"
 
 type LFUEvictionManager struct {
 	heap []MinHeap
@@ -17,7 +16,7 @@ func (lfuEvictionManager *LFUEvictionManager) push(key string) {
 		lfuEvictionManager.minHeapifyUp(len(lfuEvictionManager.heap) - 1)
 		return
 	} else {
-		lfuEvictionManager.minHeapifyUp(checkData)
+		lfuEvictionManager.minHeapifyDown(checkData)
 	}
 }
 
@@ -52,7 +51,7 @@ func (lfuEvictionManager *LFUEvictionManager) minHeapifyDown(index int) {
 	left, right := lfuEvictionManager.left(index), lfuEvictionManager.right(index)
 	childToCompare := 0
 
-	for left >= lastIndex {
+	for left <= lastIndex {
 		if left == lastIndex {
 			childToCompare = 1
 		} else if lfuEvictionManager.heap[left].Frequent > lfuEvictionManager.heap[right].Frequent {
@@ -61,7 +60,7 @@ func (lfuEvictionManager *LFUEvictionManager) minHeapifyDown(index int) {
 			childToCompare = left
 		}
 
-		if lfuEvictionManager.heap[index].Frequent < lfuEvictionManager.heap[childToCompare].Frequent {
+		if lfuEvictionManager.heap[index].Frequent > lfuEvictionManager.heap[childToCompare].Frequent {
 			lfuEvictionManager.swap(index, childToCompare)
 			index = childToCompare
 			left, right = lfuEvictionManager.left(index), lfuEvictionManager.right(index)
@@ -86,7 +85,7 @@ func parent(i int) int {
 }
 
 func (lfuEvictionManager *LFUEvictionManager) left(i int) int {
-	return 2*i + i
+	return 2*i + 1
 }
 
 func (lfuEvictionManager *LFUEvictionManager) right(i int) int {

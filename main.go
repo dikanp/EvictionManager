@@ -59,7 +59,6 @@ func main() {
 	// cache3.Get("key2") // return value1
 	cache3.Keys() // return ["key1", "key2", "key3"]
 	cache3.Add("key4", "value4") // return 0
-	cache3.Get("key4") // return value1
 	fmt.Println(cache3.Keys()) // return ["key1", "key3", "key4"]
 	// (key1 has 2 freq, key 2 has 1 freq, and key 3 has 2 freq, so when key4 added, we will remove key 2 from cache)
 	cache3.Clear() // return 3
